@@ -30,6 +30,8 @@ public class GitHubProvider {
             return ans;
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            System.out.println("超时");
         }
         return null;
 
@@ -37,11 +39,12 @@ public class GitHubProvider {
     public GitHubUser getUser(String accessToken){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(String.format("https://api.github.com/user?access_token="+accessToken))
+                .url("https://api.github.com/user")
+                .header("Authorization","token"+accessToken)
+                //.url(String.format("https://api.github.com/user?access_token="+accessToken))
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            String str = response.body().toString();
-
+            String str = response.body().string();
             GitHubUser gitHubUser = JSON.parseObject(str, GitHubUser.class);
             return gitHubUser;
 

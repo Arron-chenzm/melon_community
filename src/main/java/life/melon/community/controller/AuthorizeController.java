@@ -35,7 +35,6 @@ public class AuthorizeController {
         String accessToken = gitHubProvider.getAccessToken(accessTokenDTO);
         GitHubUser user = gitHubProvider.getUser(accessToken);
         System.out.println(user.getName());
-
         return "index";
     }
 }
