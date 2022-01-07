@@ -17,6 +17,8 @@ public class GiteeAuthorizeController {
     private GiteeProvider giteeProvider;
 
     @GetMapping("/callback_gitee")
+
+
     public String callback(@RequestParam(name = "code") String code){
         //System.out.println(code);
         GiteeAccessTokenDTO dto = new GiteeAccessTokenDTO();
