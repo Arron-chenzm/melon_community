@@ -2,12 +2,14 @@ package life.melon.community.provider;
 
 import life.melon.community.dto.GiteeAccessTokenDTO;
 import life.melon.community.dto.GiteeUser;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class GiteeProvider {
     public String getAccessToken(GiteeAccessTokenDTO accessTokenDTO){
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
