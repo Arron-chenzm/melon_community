@@ -22,7 +22,7 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-    public PageDTO list(Integer page, Integer size) {
+    public PageDTO list(String accountId, Integer page, Integer size) {
         PageDTO pageDTO = new PageDTO();
         Integer totalCount = questionMapper.count();
         pageDTO.setPagination(totalCount,page,size);
@@ -46,7 +46,34 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
         }
         pageDTO.setQuestions(questionDTOList);
-
         return pageDTO;
+    }
+
+    public PageDTO list(Integer userId, Integer page, Integer size) {
+        PageDTO pageDTO = new PageDTO();
+        Integer totalCount = questionMapper.countByUserID(userId);
+        pageDTO.setPagination(totalCount,page,size);
+
+        if (page<1){
+            page=1;
+        }
+        if (page>pageDTO.getTotalPage()){
+            page=pageDTO.getTotalPage();
+        }
+        Integer offset = (page-1)*size;
+
+        List<Question> questions = questionMapper.listByUserId(userId,offset,size);
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+
+        for (Question question:questions){
+            User user = userMapper.findById(question.getCreator());
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(question, questionDTO);
+            questionDTO.setUser(user);
+            questionDTOList.add(questionDTO);
+        }
+        pageDTO.setQuestions(questionDTOList);
+        return pageDTO;
+
     }
 }
