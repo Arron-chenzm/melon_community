@@ -54,7 +54,7 @@ public class ProfileController {
 //                return "redirect:/";
             }
         }
-        PageDTO pageDTO = questionService.list(user.getAccountId(), page, size);
+        PageDTO pageDTO = questionService.list( page, size);
         model.addAttribute("pagination", pageDTO);
             return "profile";
         }

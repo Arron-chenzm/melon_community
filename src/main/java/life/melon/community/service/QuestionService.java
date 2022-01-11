@@ -22,7 +22,7 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-    public PageDTO list(String accountId, Integer page, Integer size) {
+    public PageDTO list(Integer page, Integer size) {
         PageDTO pageDTO = new PageDTO();
         Integer totalCount = questionMapper.count();
         pageDTO.setPagination(totalCount,page,size);
